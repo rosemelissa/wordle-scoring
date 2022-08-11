@@ -8,75 +8,75 @@ Make sure to codify the above examples (LULLS and STEEL for
 
 test("Correct word gets full score", () => {
   expect(markWordleGuess("LEVEL", "LEVEL")).toStrictEqual([
-    { L: 1 },
-    { E: 1 },
-    { V: 1 },
-    { E: 1 },
-    { L: 1 },
+    { letter: "L", score: "fullMatch" },
+    { letter: "E", score: "fullMatch" },
+    { letter: "V", score: "fullMatch" },
+    { letter: "E", score: "fullMatch" },
+    { letter: "L", score: "fullMatch" },
   ]);
   expect(markWordleGuess("HOUSE", "HOUSE")).toStrictEqual([
-    { H: 1 },
-    { O: 1 },
-    { U: 1 },
-    { S: 1 },
-    { E: 1 },
+    { letter: "H", score: "fullMatch" },
+    { letter: "O", score: "fullMatch" },
+    { letter: "U", score: "fullMatch" },
+    { letter: "S", score: "fullMatch" },
+    { letter: "E", score: "fullMatch" },
   ]);
   expect(markWordleGuess("HOUSE", "AAAAA")).toStrictEqual([
-    { H: 0 },
-    { O: 0 },
-    { U: 0 },
-    { S: 0 },
-    { E: 0 },
+    { letter: "H", score: "noMatch" },
+    { letter: "O", score: "noMatch" },
+    { letter: "U", score: "noMatch" },
+    { letter: "S", score: "noMatch" },
+    { letter: "E", score: "noMatch" },
   ]);
 });
 
 test("Correct letter in wrong place gets half score", () => {
   expect(markWordleGuess("EEEEL", "LEEEE")).toStrictEqual([
-    { E: 0.5 },
-    { E: 1 },
-    { E: 1 },
-    { E: 1 },
-    { L: 0.5 },
+    { letter: "E", score: "halfMatch" },
+    { letter: "E", score: "fullMatch" },
+    { letter: "E", score: "fullMatch" },
+    { letter: "E", score: "fullMatch" },
+    { letter: "L", score: "halfMatch" },
   ]);
   expect(markWordleGuess("HOUSE", "STUDY")).toStrictEqual([
-    { H: 0 },
-    { O: 0 },
-    { U: 1 },
-    { S: 0.5 },
-    { E: 0 },
+    { letter: "H", score: "noMatch" },
+    { letter: "O", score: "noMatch" },
+    { letter: "U", score: "fullMatch" },
+    { letter: "S", score: "halfMatch" },
+    { letter: "E", score: "noMatch" },
   ]);
 });
 
 test("Checks for full scores before half-scores", () => {
   expect(markWordleGuess("LEVEL", "STEAL")).toStrictEqual([
-    { L: 0 },
-    { E: 0.5 },
-    { V: 0 },
-    { E: 0 },
-    { L: 1 },
+    { letter: "L", score: "noMatch" },
+    { letter: "E", score: "halfMatch" },
+    { letter: "V", score: "noMatch" },
+    { letter: "E", score: "noMatch" },
+    { letter: "L", score: "fullMatch" },
   ]);
   expect(markWordleGuess("APPLE", "TUPLE")).toStrictEqual([
-    { A: 0 },
-    { P: 0 },
-    { P: 1 },
-    { L: 1 },
-    { E: 1 },
+    { letter: "A", score: "noMatch" },
+    { letter: "P", score: "noMatch" },
+    { letter: "P", score: "fullMatch" },
+    { letter: "L", score: "fullMatch" },
+    { letter: "E", score: "fullMatch" },
   ]);
 });
 
 test("Each target letter can only give a score to one guess letter", () => {
   expect(markWordleGuess("LULLS", "LEVEL")).toStrictEqual([
-    { L: 1 },
-    { U: 0 },
-    { L: 0.5 },
-    { L: 0 },
-    { S: 0 },
+    { letter: "L", score: "fullMatch" },
+    { letter: "U", score: "noMatch" },
+    { letter: "L", score: "halfMatch" },
+    { letter: "L", score: "noMatch" },
+    { letter: "S", score: "noMatch" },
   ]);
   expect(markWordleGuess("APPLE", "PARTY")).toStrictEqual([
-    { A: 0.5 },
-    { P: 0.5 },
-    { P: 0 },
-    { L: 0 },
-    { E: 0 },
+    { letter: "A", score: "halfMatch" },
+    { letter: "P", score: "halfMatch" },
+    { letter: "P", score: "noMatch" },
+    { letter: "L", score: "noMatch" },
+    { letter: "E", score: "noMatch" },
   ]);
 });
